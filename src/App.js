@@ -15,10 +15,10 @@ class  App extends React.Component {
     }
   }
 
-  unsubscibeFromAuth = null;
+  unsubscribeFromAuth = null;
 
   componentDidMount() {
-    this.unsubscibeFromAuth = auth.onAuthStateChanged(
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(
       user => this.setState({
         currentUser: user
       },() => console.log(user))
@@ -27,13 +27,13 @@ class  App extends React.Component {
   
   //to prevent js leak of user credentials
   componentWillUnmount() {
-    this.unsubscibeFromAuth()
+    this.unsubscribeFromAuth()
   }
   
   render() {
     return (
     <div>
-    <Header/>
+    <Header currentUser={this.state.currentUser}/>
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/shop" component={ShopPage} />
