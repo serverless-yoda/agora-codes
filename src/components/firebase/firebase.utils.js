@@ -25,7 +25,7 @@ const config = {
     const userRef = firestore.doc(`users/${userAuth.uid}}`)
     const userSnapShot = await userRef.get()
 
-    console.log(userSnapShot)
+    //console.log(userSnapShot)
     if(!userSnapShot.exist) {
        const {displayName, email} = userAuth;
        const createdAt = new Date()

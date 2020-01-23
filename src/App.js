@@ -12,17 +12,30 @@ class  App extends React.Component {
     super()
     this.state = {
       currentUser: null
+      
     }
   }
 
   unsubscribeFromAuth = null;
 
   componentDidMount() {
+    console.log('app componentdidmount')
     this.unsubscribeFromAuth = auth.onAuthStateChanged(
-      // user => this.setState({
-      //   currentUser: user
-      // },() => console.log(user))
-      async user => firebaseCreateDocument(user)
+     async userAuth => {
+       if(userAuth) {
+         const userRef = await firebaseCreateDocument(userAuth)
+         userRef.onSnapshot(snap => {
+           this.setState({
+             currentUser: {
+               id: snap.id,
+               ...snap.data()
+             }
+           })
+         })
+         console.log(this.state)
+       }
+       this.setState({currentUser: userAuth})
+     }
     )
   }
   
