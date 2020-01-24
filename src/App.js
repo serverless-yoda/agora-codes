@@ -1,10 +1,14 @@
 import React from 'react';
 import {Route, Switch, Redirect} from 'react-router-dom'
 import './App.css';
+
 import HomePage from './pages/homepage/homepage.component'
 import ShopPage from './pages/shops/shops.component'
 import Header from './components/header/header.component'
 import SignInAndUp from './pages/sign-in-and-up/sign-in-and-up.component'
+import CheckOutPage from './pages/checkout/checkout.component'
+
+
 import { auth , firebaseCreateDocument } from './components/firebase/firebase.utils'
 import { connect } from 'react-redux'
 import { setCurrentUser } from './redux/user/user.action'
@@ -25,9 +29,7 @@ class  App extends React.Component {
            setCurrentUser({
                id: snap.id,
                ...snap.data()
-             
            })
-           //console.log(this.state)
          })
         
        }
@@ -48,6 +50,7 @@ class  App extends React.Component {
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/shop" component={ShopPage} />
+          <Route exact path="/checkout" component={CheckOutPage} />
           <Route exact path="/signin" 
             render= {() => this.props.currentUser ? (<Redirect to="/" />): (<SignInAndUp/>)}
           />
