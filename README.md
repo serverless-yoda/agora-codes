@@ -5,8 +5,6 @@ A fictional website that sell clothings,sneakers,jacket and hats. It was develop
 
 Open [http://agora-b2b.herokuapp.com/](http://agora-b2b.herokuapp.com/) to view it in the browser.
 
-### `npm start`
-
 ### Available Script
 
 In the project directory, you can run:
