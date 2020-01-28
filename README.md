@@ -1,5 +1,5 @@
 ## AGORA-B2B
-A fictional website that sell clothings,sneakers,jacket and hats. It was developed using ReactJS. Google Firebase and Firestore for authentications and data storage and Stripe for accepting payments. Redux was mainly use for storing states between components.
+A fictional website that sell clothings,sneakers,jacket and hats. It was developed using ReactJS,Google Firebase / Firestore for authentications and data storage and Stripe for accepting payments. Redux was mainly use for storing states between components. For styling, styled-components package was used.
 
 ### Heroku live
 

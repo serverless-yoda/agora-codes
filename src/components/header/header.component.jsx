@@ -1,41 +1,50 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+
 import { ReactComponent as Logo} from '../../assets/crown.svg'
-import './header.style.scss'
+
 import { auth } from '../firebase/firebase.utils'
 
 import { connect } from 'react-redux'
 import CartIcon from '../cart-icon/cart-icon.component'
 import CartDropdown from '../cart-dropdown/cart-dropdown.component'
+import { 
+    HeaderComponent,
+    LogoContainer,
+    OptionsContainer,
+    OptionLinkContainer,
+    OptionDivContainer
+} from './header.styles'
 
 const Header = ({currentUser, hidden}) => (
-    <div className="header">
-        <Link to="/">
+    <HeaderComponent>
+        <LogoContainer to="/">
             <Logo className="logo"/>
-        </Link>
-        <div className="options">
-            <Link className="option" to= "/shop">
+        </LogoContainer>
+
+        <OptionsContainer>
+            <OptionLinkContainer to= "/shop">
                 SHOP
-            </Link>
-            <Link className="option" to= "/shop">
+            </OptionLinkContainer>
+            <OptionLinkContainer to= "/shop">
                 CONTACT
-            </Link>
+            </OptionLinkContainer>
             
             {
                 currentUser ?
-                <div className="option" onClick={() => auth.signOut()}>SIGN-OUT</div>
+                <OptionDivContainer onClick={() => auth.signOut()}>SIGN-OUT</OptionDivContainer>
                 :
-                <Link className="option" to= "/signin">
+                <OptionDivContainer to= "/signin">
                 SIGN IN
-                </Link>
+                </OptionDivContainer>
             }
             <CartIcon/>
-        </div>
+        </OptionsContainer>
+
         {
             !hidden ? <CartDropdown /> : null
         }
         
-    </div>
+    </HeaderComponent>
 )
 
 const mapStateToProps = ({user: {currentUser}, cart: {hidden}}) =>({
