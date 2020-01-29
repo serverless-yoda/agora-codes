@@ -33,9 +33,9 @@ const Header = ({currentUser, hidden}) => (
                 currentUser ?
                 <OptionDivContainer onClick={() => auth.signOut()}>SIGN-OUT</OptionDivContainer>
                 :
-                <OptionDivContainer to= "/signin">
+                <OptionLinkContainer to= "/signin">
                 SIGN IN
-                </OptionDivContainer>
+                </OptionLinkContainer>
             }
             <CartIcon/>
         </OptionsContainer>

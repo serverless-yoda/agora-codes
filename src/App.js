@@ -13,6 +13,7 @@ import { auth , firebaseCreateDocument, createCollectionAndDocument } from './co
 import { connect } from 'react-redux'
 import { setCurrentUser } from './redux/user/user.action'
 import { selectCollectonsForPreview } from './redux/shop/shop.selector'
+import { createStructuredSelector } from 'reselect'
 class  App extends React.Component {
   
 
@@ -20,7 +21,7 @@ class  App extends React.Component {
 
   componentDidMount() {
    // console.log('app componentdidmount')
-   const {setCurrentUser, collectionsArray } =this.props
+   const {setCurrentUser, collectionsArray } = this.props
     this.unsubscribeFromAuth = auth.onAuthStateChanged(
      async userAuth => {
        if(userAuth) {
@@ -34,7 +35,7 @@ class  App extends React.Component {
         
        }
        setCurrentUser(userAuth)
-       createCollectionAndDocument('collections',collectionsArray)
+       //createCollectionAndDocument('collections',collectionsArray.map(({title,items}) => ({title,items})))
      }
     )
   }
@@ -63,10 +64,19 @@ class  App extends React.Component {
   
 }
 
-const mapStateToProps = ({user}) => ({
+/*
+const mapStateToPropsOLd = ({user}) => ({
   currentUser: user.currentUser,
   collectionsArray: selectCollectonsForPreview
 })
+*/
+
+const mapStateToProps = createStructuredSelector({
+  currentUser: setCurrentUser,
+  collectionsArray: selectCollectonsForPreview
+})
+  
+
 const  mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user))
 })

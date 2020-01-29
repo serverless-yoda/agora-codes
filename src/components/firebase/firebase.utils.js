@@ -44,9 +44,17 @@ const config = {
     }
   }
 
-  export const createCollectionAndDocument = (collectionKey, collectionObject) => {
+  export const createCollectionAndDocument = async (collectionKey, collectionObject) => {
      const collectionRef = firestore.collection(collectionKey)
-     console.log(collectionRef)
+     console.log(collectionObject)
+     //console.log(collectionRef)
+     const batch = firestore.batch()
+     collectionObject.forEach(item => {
+      const newCollection = collectionRef.doc()
+      batch.set(newCollection,item)
+     })
+
+     return await batch.commit()
   } 
 
 
