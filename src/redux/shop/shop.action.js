@@ -1,0 +1,3 @@
+export const ShopActionTypes = {
+    UPDATE_COLLECTION_ITEMS: 'UPDATE_COLLECTION_ITEMS'
+}

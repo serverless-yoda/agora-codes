@@ -25,7 +25,6 @@ const config = {
     const userRef = firestore.doc(`users/${userAuth.uid}}`)
     const userSnapShot = await userRef.get()
 
-    //console.log(userSnapShot)
     if(!userSnapShot.exist) {
        const {displayName, email} = userAuth;
        const createdAt = new Date()
@@ -46,8 +45,6 @@ const config = {
 
   export const createCollectionAndDocument = async (collectionKey, collectionObject) => {
      const collectionRef = firestore.collection(collectionKey)
-     console.log(collectionObject)
-     //console.log(collectionRef)
      const batch = firestore.batch()
      collectionObject.forEach(item => {
       const newCollection = collectionRef.doc()
@@ -57,6 +54,24 @@ const config = {
      return await batch.commit()
   } 
 
+  export const collectionDocumentTransformation = (collections) => {
+    
+     const collectionsTransformed = collections.docs.map(datum => {
+        const {title,items} = datum.data()
+
+        return {
+           routeUrl: encodeURI(title.toLowerCase()),
+           id: datum.id,
+           title,
+           items
+        }
+     })
+    
+     return collectionsTransformed.reduce((accumulator,collection) => {
+        accumulator[collection.title.toLowerCase()] = collection
+        return accumulator
+     },{})
+  }
 
   const provider = new firebase.auth.GoogleAuthProvider()
   provider.setCustomParameters({prompt: 'select_account'})
